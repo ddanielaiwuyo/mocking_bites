@@ -1,4 +1,4 @@
-from lib.main import ActivitySuggester
+from lib.suggester import ActivitySuggester
 from pytest import raises, mark, fixture
 from unittest.mock import Mock, patch
 
