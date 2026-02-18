@@ -1,4 +1,14 @@
 from .order import OrderEntry
+"""
+    REQUIREMENTS
+- See list of dishes and prices
+    bread £2, vinegar £10, egg(12) £40
+
+- Select an amout of available disheds:
+    bread x4, vinegar x2
+
+- Get an itemised reciept with grandtotal
+"""
 
 class App():
     def __init__(self, stock):
