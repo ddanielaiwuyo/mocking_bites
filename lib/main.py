@@ -1,4 +1,4 @@
-from order import OrderEntry
+from .order import OrderEntry
 
 class App():
     def __init__(self, stock):
@@ -18,6 +18,11 @@ class App():
             print(f" {i}. {order.name}  £{order.price}")
 
 
+    """
+    Prompts user to select an item from the stock.
+    Returns the 0 based index based on the stock provided
+    `get_user_choice(stock: list) -> int`
+    """
     def get_user_choice(self):
         while True:
             try:
@@ -34,6 +39,10 @@ class App():
             except ValueError:
                 print(" Please provide a valid number\n")
 
+    """
+    Prompts user to put how much of an item they want
+    `get_quantity() -> int`
+    """
     def _get_quantity(self):
         while True:
             try:
@@ -47,6 +56,11 @@ class App():
             except ValueError :
                 print(" Please provide a valid number\n")
 
+    """
+    Appends to the list of order_entries. By calling the
+    `_get_quantity()` method, it updates the Order 
+    `add_order_entries(stock, user_choice, quantity) -> None`
+    """
     def add_new_order(self, user_choice):
         quantity = self._get_quantity()
         new_order = self.stock[user_choice]

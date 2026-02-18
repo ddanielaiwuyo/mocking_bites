@@ -25,3 +25,5 @@ class OrderEntry:
         self.quantity = quantity
 
 
+if __name__ == "__main__":
+    print(OrderEntry("Vinegar", 84))
