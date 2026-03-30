@@ -1,7 +1,7 @@
 // https://journey.makers.tech/pages/project-stories
 #![allow(unused)]
-use std::io;
 use std::fs::File;
+use std::io;
 use std::io::Write;
 
 #[derive(Debug, Clone)]
@@ -14,7 +14,7 @@ struct Item {
 #[derive(Debug)]
 struct Receipt {
     username: String,
-    order: Order
+    order: Order,
 }
 
 #[derive(Debug)]
@@ -22,6 +22,7 @@ struct Order {
     quantity: usize,
     item_name: String,
     item_price: f32,
+    total_price: f32,
 }
 
 impl Item {
@@ -32,7 +33,7 @@ impl Item {
 
 impl Order {
     fn calculate_total_price(&self) -> f32 {
-        self.item_price  * self.quantity as f32
+        self.item_price * self.quantity as f32
     }
 }
 
@@ -120,23 +121,31 @@ fn main() {
     println!("Please provide username");
 
     user_input.clear();
-    io::stdin().read_line(&mut user_input).expect("Error occured reading from stdin");
+    io::stdin()
+        .read_line(&mut user_input)
+        .expect("Error occured reading from stdin");
+    let total_price = quantity as f32 * selected_item.price;
 
-    let reciept =  Receipt {
+    let reciept = Receipt {
         username: user_input.trim().to_string(),
-        order: Order { 
-        quantity: quantity,
-        item_name: selected_item.name.clone(),
-        item_price: selected_item.price,
-    },
+        order: Order {
+            quantity: quantity,
+            item_name: selected_item.name.clone(),
+            item_price: selected_item.price,
+            total_price,
+        },
     };
 
+    println!("total_cost -> ${total_price}");
     println!("Receipt -> : {reciept:?}");
     save_to_file(reciept);
 }
 
-fn save_to_file(r: Receipt){
-    let mut fh = File::options().append(true).open("receipts.txt").expect("Could not open receipts.txt file");
+fn save_to_file(r: Receipt) {
+    let mut fh = File::options()
+        .append(true)
+        .open("receipts.txt")
+        .expect("Could not open receipts.txt file");
     writeln!(&mut fh, "{r:?}");
 }
 

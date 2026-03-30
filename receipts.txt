@@ -1,1 +1,3 @@
 Receipt { username: "Rock Lee", order: Order { quantity: 2, item_name: "Quail Eggs", item_price: 1.59 } }
+Receipt { username: "Mordecai Raskalnikov", order: Order { quantity: 9, item_name: "Hamburger", item_price: 8.78, total_price: 79.02 } }
+Receipt { username: "Zdee Tsnu", order: Order { quantity: 11, item_name: "Hamburger", item_price: 8.78, total_price: 96.579994 } }
