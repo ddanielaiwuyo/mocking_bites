@@ -1,6 +1,8 @@
 // https://journey.makers.tech/pages/project-stories
 #![allow(unused)]
 use std::io;
+use std::fs::File;
+use std::io::Write;
 
 #[derive(Debug, Clone)]
 struct Item {
@@ -88,7 +90,7 @@ fn main() {
             .read_line(&mut user_input)
             .expect("Unexpected error while trying to read from stdin");
 
-        let qty = match user_input.trim().parse::<isize>() {
+        match user_input.trim().parse::<isize>() {
             Ok(qty) => {
                 if qty <= 0 {
                     println!("Cannot purchase {qty} items, must be positive number!");
@@ -108,7 +110,7 @@ fn main() {
                 break;
             }
             Err(e) => {
-                println!("Could parse qty amount, please try again: Reasonse {}\n", e);
+                println!("Could parse qty amount, please try again: Reason {}\n", e);
                 continue;
             }
         };
@@ -130,6 +132,12 @@ fn main() {
     };
 
     println!("Receipt -> : {reciept:?}");
+    save_to_file(reciept);
+}
+
+fn save_to_file(r: Receipt){
+    let mut fh = File::options().append(true).open("receipts.txt").expect("Could not open receipts.txt file");
+    writeln!(&mut fh, "{r:?}");
 }
 
 fn create_item(name: String, qty: usize, price: f32) -> Item {

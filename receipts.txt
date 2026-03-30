@@ -1,0 +1,1 @@
+Receipt { username: "Rock Lee", order: Order { quantity: 2, item_name: "Quail Eggs", item_price: 1.59 } }
