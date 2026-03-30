@@ -2,7 +2,7 @@
 #![allow(unused)]
 use std::io;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 struct Item {
     name: String,
     quantity: usize,
@@ -12,14 +12,25 @@ struct Item {
 #[derive(Debug)]
 struct Receipt {
     username: String,
-    total_price: usize,
-    item: Item,
-    date: String,
+    order: Order
+}
+
+#[derive(Debug)]
+struct Order {
+    quantity: usize,
+    item_name: String,
+    item_price: f32,
 }
 
 impl Item {
     fn reduce_qty(&mut self, by: usize) {
         self.quantity = self.quantity - by;
+    }
+}
+
+impl Order {
+    fn calculate_total_price(&self) -> f32 {
+        self.item_price  * self.quantity as f32
     }
 }
 
@@ -104,7 +115,21 @@ fn main() {
     }
 
     selected_item.reduce_qty(quantity);
-    println!("Upadted : {selected_item:?}");
+    println!("Please provide username");
+
+    user_input.clear();
+    io::stdin().read_line(&mut user_input).expect("Error occured reading from stdin");
+
+    let reciept =  Receipt {
+        username: user_input.trim().to_string(),
+        order: Order { 
+        quantity: quantity,
+        item_name: selected_item.name.clone(),
+        item_price: selected_item.price,
+    },
+    };
+
+    println!("Receipt -> : {reciept:?}");
 }
 
 fn create_item(name: String, qty: usize, price: f32) -> Item {
